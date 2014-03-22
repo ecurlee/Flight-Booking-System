@@ -1,29 +1,12 @@
-#include <iostream>
-#include <fstream>
-#include <string>
+#include "HubNode.h"
 
-class HubNode
+
+HubNode::HubNode(char nameOfHub[], char locationOfHub[])
 {
-	private:
-		char name, location;
-		HubNode *next;
-
-	public:
-		HubNode(char nameOfHub[], char locationOfHub[])
-		{
-			strcpy(name, nameOfHub);
-			strcpy(location, locationOfHub);
-		}
-
-		HubNode *get_next() {return next;}
-
-		FlightNode *headFlight() {return head;}
-
-		//unsure about this part
-
-		fstream importData;
-		importData.open("Hub.csv", ios::in | ios::binary); //open file for reading
-		if(importData.is_open())
-		{
-		}
+	strcpy(name, nameOfHub);
+	strcpy(location, locationOfHub);
 }
+
+HubNode *HubNode::get_next() {return next;}
+
+FlightNode *HubNode::headFlight() {return head;}
