@@ -3,21 +3,25 @@
 
 #include "Common.h"
 #include "FlightNode.h"
-#include "FlightListIterator.h"
-#include "Date_Time.h"
+
 class HubNode
 {
-	private:
-		char *name;
-		char *location;//Changed to char* data type
-		HubNode *next;
-		FlightNode *head;//added
+private:
+	char name[56];
+	char location[16];
+	HubNode *next;
+	FlightNode *head;
 
-	public:
-		HubNode(char nameOfHub[], char locationOfHub[]);
-		HubNode *get_next();
+public:
+	HubNode(char nameOfHub[], char locationOfHub[]);
+	HubNode *get_next();
+	char *get_name();
+	char *get_location();
 
-		FlightNode *headFlight();
+	void set_next(HubNode *n);
+
+	FlightNode *headFlight();
+	void add_flight(FlightNode *n);
 };
 
 #endif

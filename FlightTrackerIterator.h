@@ -1,11 +1,13 @@
-#ifndef FlightListIterator_h
-#define FlightListIterator_h
+#ifndef FlightTrackerIterator_h
+#define FlightTrackerIterator_h
 
 #include "Common.h"
 #include "FlightNode.h"
+#include "FlightNodeTracker.h"
 #include "Date_Time.h"
+
 //class is used to perform functions on a FlightNode linked list
-class FlightListIterator
+class FlightTrackerIterator
 {
 public:
 	//finds a flight in the list

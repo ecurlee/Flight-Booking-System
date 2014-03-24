@@ -8,21 +8,21 @@
 class FlightNode
 {
 private:
-	char flightNumber;
-	char flightCompany;
+	char flightNumber[8];
+	char flightCompany[12];
 	double price;
 	int duration;
-	Date_Time departure;
+	Date_Time *departure;
 	HubNode *source;
 	HubNode *destination;
 	FlightNode *next;
 	
 public:
 	//to be implemented in the sub classes
-	virtual float getBaggageFees();
-	virtual int getDelay();
+	virtual float getBaggageFees(){return (-1.0);};
+	virtual int getDelay(){return (-1);};
 	//Constructor
-	FlightNode(char flight_num[], char flight_comp[], double priceofflight, int durationofflight);
+	FlightNode(char flight_num[], char flight_comp[], double priceofflight, int durationofflight, Date_Time *dt, HubNode *src, HubNode *dest);
 
 	//accessors
 	double get_price();
@@ -30,20 +30,19 @@ public:
 	char *get_flight_num();
 	char *get_flight_comp();
 	FlightNode *get_next();
-	Date_Time get_departure();
+	Date_Time *get_departure();
 	HubNode *get_source();
 	HubNode *get_destination();
 	
 	//mutator
 	void set_next(FlightNode *n);
-	void set_departure(Date_Time time);
+	void set_departure(Date_Time *time);
 };
 
 class FlightSoutWest : public FlightNode
 {
 public:
-	FlightSoutWest(char flight_num[], char flight_comp[], double priceofflight, int durationofflight)
-		: FlightNode(flight_num, flight_comp, priceofflight, durationofflight);
+	FlightSoutWest(char flight_num[], double priceofflight, int durationofflight, Date_Time *time, HubNode *src, HubNode *dest);
 
 	//calculates the appropriate baggage fees
 	//25 per bag
@@ -56,8 +55,7 @@ public:
 class FlightUSAirway : public FlightNode
 {
 public:
-	FlightUSAirway(char flight_num[], char flight_comp[], double priceofflight, int durationofflight)
-		: FlightNode(flight_num, flight_comp, priceofflight, durationofflight);
+	FlightUSAirway(char flight_num[], double priceofflight, int durationofflight, Date_Time *time, HubNode *src, HubNode *dest);
 
 	//calculates the appropriate baggage fees
 	float getBaggageFees(int num_bags);
@@ -69,8 +67,7 @@ public:
 class FlightDelta : public FlightNode
 {
 public:
-	FlightDelta(char flight_num[], char flight_comp[], double priceofflight, int durationofflight)
-		: FlightNode(flight_num, flight_comp, priceofflight, durationofflight);
+	FlightDelta(char flight_num[], double priceofflight, int durationofflight, Date_Time *time, HubNode *src, HubNode *dest);
 
 	//calculates the appropriate baggage fees
 	//free baggage

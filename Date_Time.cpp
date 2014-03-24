@@ -11,8 +11,9 @@ Date_Time::Date_Time(int min, int hour, int day, int month, int year){
 	years = year;
 }	
 
-	
-void Date_Time::AddMinutes(int min)
-{
-	minutes = (min >= 0 && min < 60) ? min : 0;
-}
+//accessors
+int Date_Time::get_min()	{return minutes;}
+int Date_Time::get_hour()	{return hours;}
+int Date_Time::get_day()	{return days;}
+int Date_Time::get_month()	{return months;}
+int Date_Time::get_year()	{return years;}

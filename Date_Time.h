@@ -12,21 +12,26 @@ private:
 	int years;
 
 public:
-	Date_Time();
-	void AddMinutes();
-	char ToString();
-
-
 	//Constructor
 	Date_Time(int min, int hour, int day, int month, int year);
 
-	
-	void AddMinutes(int min);
+	//accessors
+	int get_min();
+	int get_hour();
+	int get_day();
+	int get_month();
+	int get_year();
 	
 
-enum{
+enum
+{
 	Jan = 1, Feb, Mar, Apr, May, Jun, Jul, Aug, Sep, Oct, Nov, Dec
 }month;
+
+enum
+{
+	Sunday = 0, Monday, Tuesday, Thursday, Friday, Saturday
+}day;
 
 };//end of Date_Time class
 

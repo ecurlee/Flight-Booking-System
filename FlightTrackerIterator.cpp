@@ -1,8 +1,8 @@
-#include "FlightListIterator.h"
+#include "FlightTrackerIterator.h"
 
 
 //finds a FlightNode give the flight number
-FlightNode* FlightListIterator::find(FlightNode *head, char flight_num[])
+FlightNode* FlightTrackerIterator::find(FlightNode *head, char flight_num[])
 {
 	FlightNode *current;
 	current = head;
@@ -33,14 +33,17 @@ void FlightListIterator::add(FlightNode **head, FlightNode *newNode)
 		//sets the head to newNode;
 		*head = newNode;
 	}
-	//while temp has a next node
-	while(temp->get_next())
+	else
 	{
-		//advances to the next node
-		temp = temp->get_next();
+		//while temp has a next node
+		while(temp->get_next())
+		{
+			//advances to the next node
+			temp = temp->get_next();
+		}
+		//adds the new node to the end of the list
+		temp->set_next(newNode);
 	}
-	//adds the new node to the end of the list
-	temp->set_next(newNode);
 }
 
 //finds the spcified flight and removes it from the list
