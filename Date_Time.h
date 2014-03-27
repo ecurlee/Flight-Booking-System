@@ -10,6 +10,10 @@ private:
 	int days;
 	int months;
 	int years;
+	void Date_Time::add_hour(int hour);
+	void Date_Time::add_day(int day);
+	void Date_Time::add_month(int month);
+	void Date_Time::add_year(int year);
 
 public:
 	//Constructor
@@ -21,6 +25,8 @@ public:
 	int get_day();
 	int get_month();
 	int get_year();
+
+	void add_min(int min);
 	
 
 enum
