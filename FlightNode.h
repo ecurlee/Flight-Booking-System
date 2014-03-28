@@ -21,6 +21,7 @@ public:
 	//to be implemented in the sub classes
 	virtual float getBaggageFees(){return (-1.0);};
 	virtual int getDelay(){return (-1);};
+	virtual FlightNode *clone(){return NULL;};
 	//Constructor
 	FlightNode(char flight_num[], char flight_comp[], double priceofflight, int durationofflight, Date_Time *dt, HubNode *src, HubNode *dest);
 
@@ -50,6 +51,8 @@ public:
 
 	//calculates the delay
 	int getDelay();
+
+	FlightSoutWest *clone();
 };
 
 class FlightUSAirway : public FlightNode
@@ -62,6 +65,8 @@ public:
 
 	//calculates the delay
 	int getDelay();
+
+	FlightUSAirway *clone();
 };
 
 class FlightDelta : public FlightNode
@@ -75,6 +80,7 @@ public:
 
 	//calculates the delay
 	int getDelay();
+	FlightDelta *clone();
 };
 
 #endif

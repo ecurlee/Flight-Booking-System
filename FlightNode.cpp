@@ -39,8 +39,7 @@ float FlightSoutWest::getBaggageFees(int num_bags) {return (float)(num_bags * 25
 //calculates the delay
 int FlightSoutWest::getDelay()
 {
-	/*
-	if(700 <= get_departure() && 1700 >= get_departure())
+	if(7 <= get_departure()->get_hour() && 17 >= get_departure()->get_hour())
 	{
 		return 30;
 	}
@@ -48,8 +47,12 @@ int FlightSoutWest::getDelay()
 	{
 		return 0;
 	}
-	*/
-	return (-1);
+}
+
+FlightSoutWest *FlightSoutWest::clone()
+{
+	FlightSoutWest *new_flight = new FlightSoutWest(get_flight_num(), get_price(), get_duration(), get_departure()->copy(), get_source(), get_destination());
+	return new_flight;
 }
 
 
@@ -72,18 +75,21 @@ float FlightUSAirway::getBaggageFees(int num_bags)
 //calculates the delay
 int FlightUSAirway::getDelay()
 {
-	/*
-	if(700 <= get_departure() && 1700 >= get_departure())
+	if(7 <= get_departure()->get_hour() && 17 >= get_departure()->get_hour())
 	{
 		return 30;
 	}
-	else if(1700 < get_departure() || 1 >= get_departure()
+	else if(17 < get_departure()->get_hour() || 1 >= get_departure()->get_hour())
 	{
 		return 15;
 	}
 	return 0;
-	*/
-	return (-1);
+}
+
+FlightUSAirway *FlightUSAirway::clone()
+{
+	FlightUSAirway *new_flight = new FlightUSAirway(get_flight_num(), get_price(), get_duration(), get_departure()->copy(), get_source(), get_destination());
+	return new_flight;
 }
 
 
@@ -98,4 +104,10 @@ float FlightDelta::getBaggageFees(int num_bags) {return 0.0;}
 int FlightDelta::getDelay()
 {
 	return 20;
+}
+
+FlightDelta *FlightDelta::clone()
+{
+	FlightDelta *new_flight = new FlightDelta(get_flight_num(), get_price(), get_duration(), get_departure()->copy(), get_source(), get_destination());
+	return new_flight;
 }

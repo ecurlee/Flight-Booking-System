@@ -27,6 +27,7 @@ public:
 	int get_year();
 
 	void add_min(int min);
+	Date_Time *copy();
 	
 
 enum

@@ -155,3 +155,9 @@ void Date_Time::add_year(int year)
 {
 	years += year;
 }
+
+Date_Time *Date_Time::copy()
+{
+	Date_Time *newDT = new Date_Time(minutes, hours, days, months, years);
+	return newDT;
+}
