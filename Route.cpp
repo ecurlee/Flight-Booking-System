@@ -36,9 +36,9 @@ FlightNode	*Route::get_flights()
 }
 
 HubNode	Route::get_dest() {return destination;}
-
-
 HubNode	Route::get_start() {return start;}
+FlightNode Route::get_price() {return price;}
+FlightNode Route::get_time() {return time;}
 
 
 int num_flights() {return sizeOf(flightlist);}; //# of flights in the route (# of hops)

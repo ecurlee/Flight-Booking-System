@@ -14,6 +14,9 @@ public:
 		HubNode *get_dest();
 		HubNode *get_start();
 		int num_flights();
+		FlightNode *get_price();
+		FlightNode *get_time();
+
 
 		Route(FlightNode *flight_list, HubNode *start, HubNode *dest);
 
