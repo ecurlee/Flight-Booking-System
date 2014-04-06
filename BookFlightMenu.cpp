@@ -1,11 +1,12 @@
 #include "BookFlightMenu.h"
 
 
-BookFlightMenu::BookFlightMenu(int date1, int date2, char start, char end)
+BookFlightMenu::BookFlightMenu(int date1, int date2, char start, char end, int num_bags)
 {
 	int departure = date1, date2;
 	char source = start;
 	char destination = end;
+	int number_bags = num_bags;
 
 	cout << "What city are you departing from?" << endl;
 	cin >> start;
@@ -38,15 +39,52 @@ BookFlightMenu::BookFlightMenu(int date1, int date2, char start, char end)
 
 	cout << "Flights available at these times" << endl;
 
+	//Creates possible routes with given information
+	Route(FlightNode *flightlist, HubNode *start, HubNode *end);
+	Route *myRoutePtr = new Route();
+	Route myRoute;
 
-	// Information needs to be stored. Must create possible routes. Must sort them.
-	// Must print the shortest, then the cheapest. Calculate baggage fees AND duration for shortest and cheapest routes.
-	// PRINT info for shortest and cheapest. Ask user which one they want to do. Take user input. Print itinerary of 
-	// the chosen flight. Say thanks, go back to MainMenu();
 
-	// QuitMenu needs to be created. This one destructs.
+	//Sorts routes by shortest
+	myRoute.sort_by_time();
+
+	//Print shortest (the head node of the list)
+	cout << "Your shortest flight option:" << endl;
+		//NEED TO DO
+
+	//Sorts routes by cheapest
+	myRoute.sort_by_price();
+
+	//Print cheapest (the head node of the list)
+	cout << "Your cheapest flight option:" << endl;
+		//NEED TO DO
+	
+	cout << "Would you like to pick the shortest flight option or the cheapest flight option?" << endl;
+	cout << "a: shortest" << endl;
+	cout << "b: cheapest" << endl;
+	
+	switch (choice) {
+	case "a": myRoute.sort_by_time();
+		break;
+	case "b": myRoute.sort_by_price(); 
+		break;
+	default: cout << "Invalid choice. Try again." << endl;
+		break;
+	}
+
+	myRoute.get
+		
+
+
+	cout << "Enter total number of bags you with to check in" << endl;
+	cin >> num_bags;
+	FlightNode *bags = new FlightNode();
+	bags -> getBaggageFees();
+
+
+
 }	
-PrintItinerary::PrintItinerary(char flight_num[], char flight_comp[], double priceofflight, int durationofflight, Date_Time *time, HubNode *src, HubNode *dest)
+PrintItinerary::PrintItinerary(char flight_num[], char flight_comp[], double priceofflight, int durationofflight, Date_Time *time, HubNode *src, HubNode *dest, int num_bags)
 	{
 		cout << "Summary of your flight" << endl;
 
@@ -56,7 +94,18 @@ PrintItinerary::PrintItinerary(char flight_num[], char flight_comp[], double pri
 		cout << flight_comp[start];
 		cout << start;
 		cout << date1;
-		cout << time;
+		cout << time1 << endl;
+		cout << flight_num[end];
+		cout << flight_comp[end];
+		cout << end;
+		cout << date2;
+		cout << time2 << endl;
+
+		cout << "Check-in " << num_bags << " bags" << endl;
+
+		//need to format...
+		//need to calculate total
+
 
 
 	}
