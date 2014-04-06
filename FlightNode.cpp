@@ -1,6 +1,8 @@
 #include "FlightNode.h"
+#include "Date_Time.h"
 
-//Constructor
+
+//Constructor------------------------------------------------------------------------------------------------------------------------------------------
 FlightNode::FlightNode(char flight_num[], char flight_comp[], double priceofflight, int durationofflight, Date_Time *time, HubNode *src, HubNode *dest)
 {
 	strcpy(flightNumber, flight_num);
@@ -26,9 +28,10 @@ HubNode*	FlightNode::get_destination()	{return destination;}
 //mutators
 void FlightNode::set_next(FlightNode *n)		{next = n;}
 void FlightNode::set_departure(Date_Time *time)	{departure = time;}
+//-----------------------------------------------------------------------------------------------------------------------------------------
 
 
-
+//-----------------------------------------------------------------------------------------------------------------------------------------
 FlightSoutWest::FlightSoutWest(char flight_num[], double priceofflight, int durationofflight, Date_Time *time, HubNode *src, HubNode *dest)
 		: FlightNode(flight_num, "SouthWest", priceofflight, durationofflight, time, src, dest) {}
 
@@ -48,14 +51,9 @@ int FlightSoutWest::getDelay()
 		return 0;
 	}
 }
+//-----------------------------------------------------------------------------------------------------------------------------------------
 
-FlightSoutWest *FlightSoutWest::clone()
-{
-	FlightSoutWest *new_flight = new FlightSoutWest(get_flight_num(), get_price(), get_duration(), get_departure()->copy(), get_source(), get_destination());
-	return new_flight;
-}
-
-
+//-----------------------------------------------------------------------------------------------------------------------------------------
 FlightUSAirway::FlightUSAirway(char flight_num[], double priceofflight, int durationofflight, Date_Time *time, HubNode *src, HubNode *dest)
 		: FlightNode(flight_num, "USAirway", priceofflight, durationofflight, time, src, dest) {}
 
@@ -85,14 +83,9 @@ int FlightUSAirway::getDelay()
 	}
 	return 0;
 }
+//-----------------------------------------------------------------------------------------------------------------------------------------
 
-FlightUSAirway *FlightUSAirway::clone()
-{
-	FlightUSAirway *new_flight = new FlightUSAirway(get_flight_num(), get_price(), get_duration(), get_departure()->copy(), get_source(), get_destination());
-	return new_flight;
-}
-
-
+//-----------------------------------------------------------------------------------------------------------------------------------------
 FlightDelta::FlightDelta(char flight_num[], double priceofflight, int durationofflight, Date_Time *time, HubNode *src, HubNode *dest)
 		: FlightNode(flight_num, "Delta", priceofflight, durationofflight, time, src, dest) {}
 
@@ -105,9 +98,25 @@ int FlightDelta::getDelay()
 {
 	return 20;
 }
+//-----------------------------------------------------------------------------------------------------------------------------------------
 
-FlightDelta *FlightDelta::clone()
+
+//=========================================================================================================================================
+FlightNodeTracker::FlightNodeTracker(FlightNode *n)
 {
-	FlightDelta *new_flight = new FlightDelta(get_flight_num(), get_price(), get_duration(), get_departure()->copy(), get_source(), get_destination());
-	return new_flight;
+	current = n;
+	next = NULL;
+}
+
+FlightNode *FlightNodeTracker::get_flight()				{return current;}
+FlightNodeTracker *FlightNodeTracker::get_next()		{return next;}
+void FlightNodeTracker::set_flight(FlightNode *flight)	{current = flight;}
+void FlightNodeTracker::set_next(FlightNodeTracker *n)	{next = n;}
+
+
+FlightNodeTracker *FlightNodeTracker::clone()
+{
+	FlightNodeTracker *temp = new FlightNodeTracker(current);
+	temp->next = NULL;
+	return temp;
 }

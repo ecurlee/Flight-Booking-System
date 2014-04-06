@@ -5,6 +5,8 @@
 #include "HubNode.h"
 #include "Date_Time.h"
 
+class Date_Time;
+
 class FlightNode
 {
 private:
@@ -19,9 +21,8 @@ private:
 	
 public:
 	//to be implemented in the sub classes
-	virtual float getBaggageFees(){return (-1.0);};
-	virtual int getDelay(){return (-1);};
-	virtual FlightNode *clone(){return NULL;};
+	virtual float getBaggageFees(int num_bags){return (-1.0);}
+	virtual int getDelay(){return (-1);}
 	//Constructor
 	FlightNode(char flight_num[], char flight_comp[], double priceofflight, int durationofflight, Date_Time *dt, HubNode *src, HubNode *dest);
 
@@ -51,8 +52,6 @@ public:
 
 	//calculates the delay
 	int getDelay();
-
-	FlightSoutWest *clone();
 };
 
 class FlightUSAirway : public FlightNode
@@ -65,8 +64,6 @@ public:
 
 	//calculates the delay
 	int getDelay();
-
-	FlightUSAirway *clone();
 };
 
 class FlightDelta : public FlightNode
@@ -80,7 +77,24 @@ public:
 
 	//calculates the delay
 	int getDelay();
-	FlightDelta *clone();
 };
+
+//------------------------------------------------------------------------------------------------------------
+//Used to track the progression of flights in the sorting and navigating classes
+class FlightNodeTracker
+{
+private:	
+	FlightNode *current;
+	FlightNodeTracker *next;
+
+public:
+	FlightNodeTracker(FlightNode *n);
+	FlightNode *get_flight();
+	FlightNodeTracker *get_next();
+	void set_flight(FlightNode *flight);
+	void set_next(FlightNodeTracker *n);
+	FlightNodeTracker *clone();
+};
+
 
 #endif

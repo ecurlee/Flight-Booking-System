@@ -6,8 +6,6 @@
 #include <stdlib.h>
 #include <iostream>
 #include <fstream>
-class Date_Time;
-class FlightNode;
 class HubNode;
 using namespace std;
 

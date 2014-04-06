@@ -10,7 +10,7 @@ void SysMaker::build_hub_list()
 	//used for making new nodes
 	HubNode *temp;
 	//used to iterate through the list (adding)
-	HubNodeIterator *hni = new HubNodeIterator;
+	Iterator iter;
 	fstream fin;
 	//opens the file
 	fin.open("Hub.csv", ios::in | ios::binary);
@@ -37,7 +37,7 @@ void SysMaker::build_hub_list()
 			//makes a new node
 			temp = new HubNode(name, loc);
 			//adds it
-			hni->add(&hnhead, temp);
+			iter.add(&hnhead, temp);
 
 			//gets the next name
 			fin.getline(name, 60, ',');
@@ -50,8 +50,6 @@ void SysMaker::build_hub_list()
 	{
 		cout << "ERROR: Could not open Hub.csv file!" << endl;
 	}
-	//destroys the iterator
-	delete hni;
 }
 
 //removes the hub list
@@ -97,8 +95,7 @@ void SysMaker::build_flight_list()
 	char number[8], price[8], source[56], dest[56],  duration[4], company[12], garbage[400];
 	char dep_m[4], dep_h[4], dep_d[4], dep_mo[4], dep_y[8];
 	FlightNode *temp;
-	FlightNodeTracker *p;
-	HubNodeIterator *hni = new HubNodeIterator;
+	Iterator iter;
 	double pri;
 	int dur, d_m, d_h, d_d, d_mo, d_y;
 	HubNode *destNode, *srcNode;
@@ -107,10 +104,6 @@ void SysMaker::build_flight_list()
 	//opens the file
 	fin.open("Flight.csv", ios::in | ios::binary);
 
-	//sets up the flightnodetracker
-	fnthead = new FlightNodeTracker();
-	p = fnthead;
-	p->next = NULL;
 	//if success
 	if(fin.is_open())
 	{
@@ -155,8 +148,8 @@ void SysMaker::build_flight_list()
 			dur = atoi(duration);
 
 			//gets the source and destination nodes
-			srcNode = hni->find(hnhead, source);
-			destNode = hni->find(hnhead, dest);
+			srcNode = iter.find_name(hnhead, source);
+			destNode = iter.find_name(hnhead, dest);
 
 			//makes a flight of the appropriate company
 			if(0 == strcmp(company, "SouthWest"))
@@ -175,26 +168,10 @@ void SysMaker::build_flight_list()
 			srcNode->add_flight(temp);
 
 			//adds it to the flightnodetrackerlist
-			p->current = temp;
-			p->next = new FlightNodeTracker();
-			p = p->next;
-			p->next = NULL;
 
 			//gets the next name
 			fin.getline(number, 8, ',');
 		}
-		//cleans up the hub node list
-		p = fnthead;
-		if(p->next)
-		{
-			while(p->next->next)
-			{
-				p = p->next;
-			}
-			delete p->next;
-			p->next = NULL;
-		}
-
 		//closes the file
 		fin.close();
 	}
@@ -203,45 +180,7 @@ void SysMaker::build_flight_list()
 	{
 		cout << "ERROR: Could not open Flight.csv file!" << endl;
 	}
-	//destroys the iterator
-	delete hni;
 }
-
-//removes the flight list
-void SysMaker::del_fl(FlightNodeTracker *n)
-{
-	if(n)
-	{
-		delete n->current;
-		del_fl(n->next);
-		delete n;
-	}
-}
-
-//prints the flight list
-void SysMaker::print_fl(FlightNodeTracker *n)
-{
-	if(n)
-	{
-		cout << "Number: " << n->current->get_flight_num() << endl;
-		print_fl(n->next);
-	}
-}
-
-void SysMaker::del_flight_list()
-{
-	del_fl(fnthead);
-}
-
-void SysMaker::print_flight_list()
-{
-	print_fl(fnthead);
-}
-
-
-
-
-
 
 void SysMaker::debug_print()
 {
@@ -251,6 +190,5 @@ void SysMaker::debug_print()
 
 SysMaker::~SysMaker()
 {
-	del_flight_list();
 	del_hub_list();
 }

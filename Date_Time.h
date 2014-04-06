@@ -2,6 +2,7 @@
 #define Date_Time_h
 
 #include "Common.h"
+
 class Date_Time{
 
 private:
@@ -10,10 +11,10 @@ private:
 	int days;
 	int months;
 	int years;
-	void Date_Time::add_hour(int hour);
-	void Date_Time::add_day(int day);
-	void Date_Time::add_month(int month);
-	void Date_Time::add_year(int year);
+	void add_hour(int hour);
+	void add_day(int day);
+	void add_month(int month);
+	void add_year(int year);
 
 public:
 	//Constructor
@@ -28,17 +29,10 @@ public:
 
 	void add_min(int min);
 	Date_Time *copy();
-	
 
-enum
-{
-	Jan = 1, Feb, Mar, Apr, May, Jun, Jul, Aug, Sep, Oct, Nov, Dec
-}month;
+	long get_min_since_2013();
 
-enum
-{
-	Sunday = 0, Monday, Tuesday, Thursday, Friday, Saturday
-}day;
+	string get_time();
 
 };//end of Date_Time class
 
